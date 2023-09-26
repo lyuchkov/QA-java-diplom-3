@@ -7,11 +7,7 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import page_objects.LoginPage;
-import page_objects.MainPage;
 import pojos.User;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class AuthBaseTest {
     protected WebDriver driver;
@@ -21,8 +17,9 @@ public class AuthBaseTest {
     static {
         WebDriverManager.chromedriver().setup();
     }
-    @Step("Enter the correct data and login")
-    protected void enterCredentials() {
+
+    @Step("Enter the correct data and click submit button")
+    protected void enterCredentialsOnLoginPageAndClickSubmit() {
         LoginPage loginPage = new LoginPage(driver);
 
         loginPage.waitForEmailFieldBeenDisplayed();
@@ -34,32 +31,38 @@ public class AuthBaseTest {
         loginPage.setPasswordField(userCredentials.getPassword());
 
         loginPage.clickSubmitButton();
-        MainPage mainPage = new MainPage(driver);
-
-        assertTrue(mainPage.isSignCollectBurgerVisible());
-
-        assertEquals(MainPage.URL, driver.getCurrentUrl());
     }
 
     @Step("Create new user data by API")
-    private User getUserCredentials(){
+    protected User getUserCredentials() {
         UserClient userClient = new UserClient();
         User user = userClient.getBasicUserCreationResponse();
-        if(user==null){
+        if (user == null) {
             throw new RuntimeException("User is not created by API");
         }
         return user;
     }
+
+    @Step("Delete user data")
+    protected void deleteUserData(User user) {
+        System.out.println("REMOVE USER DATA");
+        UserClient userClient = new UserClient();
+        userClient.deleteUser(user);
+    }
+
     @Before
-    public void before(){
+    public void before() {
         driver = new ChromeDriver();
 
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
 
         userCredentials = getUserCredentials();
     }
+
     @After
-    public void after(){
+    public void after() {
+        deleteUserData(userCredentials);
+
         driver.quit();
     }
 }

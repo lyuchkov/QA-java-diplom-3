@@ -4,8 +4,10 @@ import page_objects.MainPage;
 import page_objects.PasswordRecoveryPage;
 import page_objects.SignUpPage;
 
-public class LoginTest extends AuthBaseTest {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+public class LoginTest extends AuthBaseTest {
     @Test
     @DisplayName("Check login after click sign in button on main page")
     public void successfulLoginAfterClickSignInButtonOnMainPageTest() {
@@ -14,18 +16,23 @@ public class LoginTest extends AuthBaseTest {
 
         mainPage.clickSignInButton();
 
-        enterCredentials();
+        enterCredentialsOnLoginPageAndClickSubmit();
+        assertTrue(mainPage.isSignCollectBurgerVisible());
+        assertEquals(MainPage.URL, driver.getCurrentUrl());
     }
 
-    @DisplayName("Check login after click profile button on main page")
     @Test
+    @DisplayName("Check login after click profile button on main page")
     public void successfulLoginAfterClickAccountButtonOnMainPageTest() {
         driver.get(MainPage.URL);
         MainPage mainPage = new MainPage(driver);
 
         mainPage.clickProfileButton();
 
-        enterCredentials();
+        enterCredentialsOnLoginPageAndClickSubmit();
+
+        assertTrue(mainPage.isSignCollectBurgerVisible());
+        assertEquals(MainPage.URL, driver.getCurrentUrl());
     }
 
     @Test
@@ -36,7 +43,11 @@ public class LoginTest extends AuthBaseTest {
 
         signUpPage.clickSignInButton();
 
-        enterCredentials();
+        enterCredentialsOnLoginPageAndClickSubmit();
+        MainPage mainPage = new MainPage(driver);
+
+        assertTrue(mainPage.isSignCollectBurgerVisible());
+        assertEquals(MainPage.URL, driver.getCurrentUrl());
     }
     @Test
     @DisplayName("Check login after click sign in button on password recovery page")
@@ -46,8 +57,11 @@ public class LoginTest extends AuthBaseTest {
 
         passwordRecoveryPage.clickSignInButton();
 
-        enterCredentials();
+        enterCredentialsOnLoginPageAndClickSubmit();
+
+        MainPage mainPage = new MainPage(driver);
+
+        assertTrue(mainPage.isSignCollectBurgerVisible());
+        assertEquals(MainPage.URL, driver.getCurrentUrl());
     }
-
-
 }

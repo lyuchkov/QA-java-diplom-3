@@ -1,4 +1,3 @@
-import com.sun.tools.javac.Main;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,17 +9,21 @@ import page_objects.ProfilePage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TransitionsTest extends AuthBaseTest {
+public class ProfileTransitionsTest extends AuthBaseTest {
 
     @Test
     @DisplayName("Check transition from main page to profile page")
     public void transitionFromMainToProfilePageTest() {
         driver.get(LoginPage.URL);
-        enterCredentials();
+        enterCredentialsOnLoginPageAndClickSubmit();
+
+        MainPage mainPage = new MainPage(driver);
+
+        assertTrue(mainPage.isSignCollectBurgerVisible());
+        assertEquals(MainPage.URL, driver.getCurrentUrl());
 
         driver.get(MainPage.URL);
 
-        MainPage mainPage = new MainPage(driver);
         mainPage.clickProfileButton();
         ProfilePage profilePage = new ProfilePage(driver);
 
@@ -30,9 +33,10 @@ public class TransitionsTest extends AuthBaseTest {
     @DisplayName("Check transition from profile to main page by click constructor button")
     public void transitionFromProfileToConstructorPageTest(){
         driver.get(LoginPage.URL);
-        enterCredentials();
-
+        enterCredentialsOnLoginPageAndClickSubmit();
         MainPage mainPage = new MainPage(driver);
+        assertTrue(mainPage.isSignCollectBurgerVisible());
+        assertEquals(MainPage.URL, driver.getCurrentUrl());
         mainPage.clickProfileButton();
 
         ProfilePage profilePage = new ProfilePage(driver);
@@ -45,9 +49,10 @@ public class TransitionsTest extends AuthBaseTest {
     @DisplayName("Check transition from profile page to main page by click on logotype")
     public void transitionFromProfileToConstructorPageByLogotypeTest(){
         driver.get(LoginPage.URL);
-        enterCredentials();
-
+        enterCredentialsOnLoginPageAndClickSubmit();
         MainPage mainPage = new MainPage(driver);
+        assertTrue(mainPage.isSignCollectBurgerVisible());
+        assertEquals(MainPage.URL, driver.getCurrentUrl());
         mainPage.clickProfileButton();
 
         ProfilePage profilePage = new ProfilePage(driver);
@@ -60,9 +65,10 @@ public class TransitionsTest extends AuthBaseTest {
     @DisplayName("Check sign out")
     public void signOutTest(){
         driver.get(LoginPage.URL);
-        enterCredentials();
-
+        enterCredentialsOnLoginPageAndClickSubmit();
         MainPage mainPage = new MainPage(driver);
+        assertTrue(mainPage.isSignCollectBurgerVisible());
+        assertEquals(MainPage.URL, driver.getCurrentUrl());
         mainPage.clickProfileButton();
 
         ProfilePage profilePage = new ProfilePage(driver);

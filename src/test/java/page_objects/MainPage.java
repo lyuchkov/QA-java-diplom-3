@@ -1,6 +1,5 @@
 package page_objects;
 
-import io.qameta.allure.Severity;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,12 +23,8 @@ public class MainPage {
     private By sauceButton = By.xpath("//div[contains(span, 'Соусы')]");
     //Кнопка раздела "Булки"
     private By bunsButton = By.xpath("//div[contains(span, 'Булки')]");
-    //Название раздела "Начинки"
-    private By fillingsSign = By.xpath("//h2[text()='Начинки']");
-    //Название раздела "Соусы"
-    private By sauceSign = By.xpath("//h2[text()='Соусы']");
-    //Название раздела "Булки"
-    private By bunSign = By.xpath("//h2[text()='Булки']");
+    //Класс активного раздела конструктора
+    private By activeConstructorSection = By.xpath("//div[contains(@class,'tab_tab_type_current__2BEPc')]");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -65,16 +60,8 @@ public class MainPage {
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(bunsButton));
         driver.findElement(bunsButton).click();
     }
-    @Step("Check if filling sign visible")
-    public boolean isFillingSignVisible(){
-        return driver.findElement(fillingsSign).isDisplayed();
-    }
-    @Step("Check if sauce sign visible")
-    public boolean isSauceSignVisible(){
-        return driver.findElement(sauceSign).isDisplayed();
-    }
-    @Step("Check if bun sign visible")
-    public boolean isBunSignVisible(){
-        return driver.findElement(bunSign).isDisplayed();
+    @Step("Get active constructor section name")
+    public String getActiveConstructorSectionName(){
+        return driver.findElement(activeConstructorSection).getText();
     }
 }

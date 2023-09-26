@@ -5,6 +5,8 @@ public class User {
     private String password;
     private String name;
 
+    private String accessToken;
+    private String refreshToken;
 
     public User(String email, String password, String name) {
         this.email = email;
@@ -35,5 +37,21 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
