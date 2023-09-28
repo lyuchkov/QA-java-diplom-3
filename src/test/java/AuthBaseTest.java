@@ -1,22 +1,19 @@
 import client.UserClient;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import page_objects.LoginPage;
 import pojos.User;
+
+import static utils.BrowserFactory.getWebDriver;
 
 public class AuthBaseTest {
     protected WebDriver driver;
 
     private User userCredentials;
 
-    static {
-        WebDriverManager.chromedriver().setup();
-    }
 
     @Step("Enter the correct data and click submit button")
     protected void enterCredentialsOnLoginPageAndClickSubmit() {
@@ -52,7 +49,7 @@ public class AuthBaseTest {
 
     @Before
     public void before() {
-        driver = new ChromeDriver();
+        driver = getWebDriver();
 
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
 

@@ -1,20 +1,16 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import page_objects.MainPage;
 
 import static org.junit.Assert.assertEquals;
+import static utils.BrowserFactory.getWebDriver;
 
 public class ConstructorTest {
     protected WebDriver driver;
 
-    static {
-        WebDriverManager.chromedriver().setup();
-    }
 
     @Test
     @DisplayName("Check transition from bun to filling on main page")
@@ -60,7 +56,7 @@ public class ConstructorTest {
 
     @Before
     public void before() {
-        driver = new ChromeDriver();
+        driver = getWebDriver();
     }
 
     @After

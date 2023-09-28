@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import page_objects.LoginPage;
@@ -18,16 +17,18 @@ import pojos.User;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.Assert.assertEquals;
+import static utils.BrowserFactory.getWebDriver;
 
-public class SignUpTest{
+public class SignUpTest {
     protected WebDriver driver;
+
     static {
         WebDriverManager.chromedriver().setup();
     }
 
     @Before
     public void before() {
-        driver = new ChromeDriver();
+        driver = getWebDriver();
 
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
     }
