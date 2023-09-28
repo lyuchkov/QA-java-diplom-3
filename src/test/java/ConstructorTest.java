@@ -11,7 +11,6 @@ import static utils.BrowserFactory.getWebDriver;
 public class ConstructorTest {
     protected WebDriver driver;
 
-
     @Test
     @DisplayName("Check transition from bun to filling on main page")
     public void transitionToFillingTest() {

@@ -1,5 +1,4 @@
 import client.UserClient;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
@@ -21,10 +20,6 @@ import static utils.BrowserFactory.getWebDriver;
 
 public class SignUpTest {
     protected WebDriver driver;
-
-    static {
-        WebDriverManager.chromedriver().setup();
-    }
 
     @Before
     public void before() {
